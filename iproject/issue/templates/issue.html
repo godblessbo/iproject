@@ -1,0 +1,305 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        <section id="widget-grid" class="">
+
+            <div class="row">
+
+                <article class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-2">
+
+                    <table id="jqgrid"></table>
+                    <div id="pjqgrid"></div>
+                    <br>
+                    <a href="javascript:void(0)" id="m1">Open</a><br>
+                    <a href="javascript:void(0)" id="m1s">All</a>
+                </article>
+
+            </div>
+        </section>
+
+    </div>
+
+
+    <script src="/static/js/libs/jquery-2.1.1.min.js"></script>
+
+    <script>
+        if (!window.jQuery) {
+            document.write('<script src="/static/js/libs/jquery-2.1.1.min.js"><\/script>');
+        }
+    </script>
+
+    <script src="/static/js/libs/jquery-ui-1.10.3.min.js"></script>
+
+    <script>
+        if (!window.jQuery.ui) {
+            document.write('<script src="/static/js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+        }
+    </script>
+
+    <script src="/static/js/bootstrap/bootstrap.min.js"></script>
+
+    <script src="/static/js/app.config.js"></script>
+
+    <script src="/static/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script>
+
+    <script src="/static/js/notification/SmartNotification.min.js"></script>
+
+    <script src="/static/js/smartwidgets/jarvis.widget.min.js"></script>
+
+    <script src="/static/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+
+    <script src="/static/js/plugin/sparkline/jquery.sparkline.min.js"></script>
+
+    <script src="/static/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+
+    <script src="/static/js/plugin/select2/select2.min.js"></script>
+
+    <script src="/static/js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+
+    <script src="/static/js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+
+    <script src="/static/js/plugin/fastclick/fastclick.min.js"></script>
+
+    <script src="/static/js/demo.min.js"></script>
+
+    <script src="/static/js/app.min.js"></script>
+
+    <script src="/static/js/smart-chat-ui/smart.chat.ui.min.js"></script>
+
+    <script src="/static/js/smart-chat-ui/smart.chat.manager.min.js"></script>
+
+    <script type="text/javascript">
+
+
+        pageSetUp();
+
+        var pagefunction = function () {
+                    loadScript("/static/js/plugin/jqgrid/jquery.jqGrid.min.js", run_jqgrid_function);
+
+                    function run_jqgrid_function() {
+
+
+                        var jqgrid_data = [
+
+                            {%  for p in task %}
+                                {
+                                    id: '{{p.id}}',
+                                    startTime: '{{ p.startTime }}',
+                                    owner: '{{ p.owner }}',
+                                    task: '{{ p.task }}',
+                                    creator: '{{ p.creator }}',
+                                    endTime: '{{ p.endTime }}',
+                                    state: '{{ p.state }}',
+                                    process: '{{ p.process }}'
+                                },
+                            {% endfor %}
+                        ];
+
+                        var creatordata =
+
+                                {
+                                    {% for q in creators %} '{{ q.creator }}': '{{q.creator}}',    {% endfor %}
+                                } ;
+
+                        jQuery("#jqgrid").jqGrid({
+                                    data: jqgrid_data,
+                                    datatype: "local",
+                                    height: 'auto',
+                                    colNames: ['Actions', 'creator', 'owner', 'tasks', 'startTime', 'endTime', 'process', 'state'],
+                                    colModel: [
+                                        {
+                                            name: 'act',
+                                            index: 'act',
+                                            sortable: false,
+                                            searchable: false
+                                        },
+                                        {
+                                            name: 'creator',
+                                            index: 'creator',
+                                            editable: true,
+                                            edittype: 'select',
+                                            editoptions: {
+                                                value: creatordata, dataEvents: [
+                                                    {
+                                                        type: 'change',
+                                                        fn: function (e) {
+                                                            var str = "";
+                                                            $.ajax({
+                                                                url: '/iproject/issue/getselect',
+                                                                async: false,
+                                                                cache: false,
+                                                                datatype: 'json',
+                                                                data: {
+                                                                    actiontype: this.value
+                                                                },
+                                                                success: function (json) {
+                                                                    if (json != null) {
+
+                                                                        str = eval(json);
+
+
+                                                                    }
+                                                                }
+                                                            });
+                                                            $("#jqgrid").jqGrid('setCell', "1", "owner", str, {
+
+                                                                'font-weight': 'bold',
+                                                                color: 'red',
+                                                                'text-align': 'center'
+                                                            })
+                                                        }
+
+                                                    }
+
+
+                                                ]
+                                            }
+
+                                        }
+
+                                        ,
+                                        {
+                                            name: 'owner',
+                                            index: 'owner'
+
+
+                                        }
+                                        ,
+                                        {
+                                            name: 'task',
+                                            index: 'task',
+                                            sortable: false,
+                                            editable: true,
+                                            searchable: false
+                                        }
+                                        ,
+                                        {
+                                            name: 'startTime',
+                                            index: 'startTime',
+                                            editable: false
+                                        }
+                                        ,
+                                        {
+                                            name: 'endTime',
+                                            index: 'endTime',
+                                            editable: false
+                                        }
+                                        ,
+                                        {
+                                            name: 'process',
+                                            index: 'process',
+                                            editable: false,
+                                            searchable: false
+                                        }
+                                        ,
+                                        {
+                                            name: 'state',
+                                            index: 'state',
+                                            editable: false
+                                        }
+                                    ],
+                                    rowNum: 10,
+                                    rowList: [10, 20, 30],
+                                    pager: '#pjqgrid',
+                                    sortname: 'id',
+                                    toolbarfilter: true,
+                                    viewrecords: true,
+                                    sortorder: "asc",
+
+                                    gridComplete: function () {
+                                        var ids = jQuery("#jqgrid").jqGrid('getDataIDs');
+                                        for (var i = 0; i < ids.length; i++) {
+                                            var cl = ids[i];
+                                            be = "<button class='btn btn-xs btn-default' data-original-title='Edit Row' onclick=\"jQuery('#jqgrid').editRow('" + cl + "');\"><i class='fa fa-pencil'></i></button>";
+                                            se = "<button class='btn btn-xs btn-default' data-original-title='Save Row' onclick=\"jQuery('#jqgrid').saveRow('" + cl + "');\"><i class='fa fa-save'></i></button>";
+                                            ca = "<button class='btn btn-xs btn-default' data-original-title='Cancel' onclick=\"jQuery('#jqgrid').restoreRow('" + cl + "');\"><i class='fa fa-times'></i></button>";
+                                            //ce = "<button class='btn btn-xs btn-default' onclick=\"jQuery('#jqgrid').restoreRow('"+cl+"');\"><i class='fa fa-times'></i></button>";
+                                            //jQuery("#jqgrid").jqGrid('setRowData',ids[i],{act:be+se+ce});
+                                            jQuery("#jqgrid").jqGrid('setRowData', ids[i], {act: be + se + ca});
+                                        }
+                                    }
+
+                                    ,
+                                    async: true,
+                                    editurl: "/iproject/issue/dummy",
+                                    caption: "Issue Information",
+                                    multiselect: false,
+                                    autowidth: true,
+                                    shrinkToFit: true
+
+                                }
+                        )
+                        ;
+                        jQuery("#jqgrid").jqGrid('navGrid', "#pjqgrid", {
+                            edit: false,
+                            add: false,
+                            del: true,
+                            refresh: false
+                        });
+                        jQuery("#jqgrid").jqGrid('inlineNav', "#pjqgrid");
+                        /* Add tooltips */
+                        $('.navtable .ui-pg-button').tooltip({
+                            container: 'body'
+                        });
+                        jQuery("#m1").click(function () {
+                            $("#jqgrid").jqGrid('setCell', "1", "owner", "f", {
+                                'font-weight': 'bold',
+                                color: 'red',
+                                'text-align': 'center',
+
+                            });
+                        });
+
+
+                        // remove classes
+                        $(".ui-jqgrid").removeClass("ui-widget ui-widget-content");
+                        $(".ui-jqgrid-view").children().removeClass("ui-widget-header ui-state-default");
+                        $(".ui-jqgrid-labels, .ui-search-toolbar").children().removeClass("ui-state-default ui-th-column ui-th-ltr");
+                        $(".ui-jqgrid-pager").removeClass("ui-state-default");
+                        $(".ui-jqgrid").removeClass("ui-widget-content");
+
+                        // add classes
+                        $(".ui-jqgrid-htable").addClass("table table-bordered table-hover");
+                        $(".ui-jqgrid-btable").addClass("table table-bordered table-striped");
+
+
+                        $(".ui-pg-div").removeClass().addClass("btn btn-sm btn-primary");
+                        $(".ui-icon.ui-icon-plus").removeClass().addClass("fa fa-plus");
+                        $(".ui-icon.ui-icon-pencil").removeClass().addClass("fa fa-pencil");
+                        $(".ui-icon.ui-icon-trash").removeClass().addClass("fa fa-trash-o");
+                        $(".ui-icon.ui-icon-search").removeClass().addClass("fa fa-search");
+                        $(".ui-icon.ui-icon-refresh").removeClass().addClass("fa fa-refresh");
+                        $(".ui-icon.ui-icon-disk").removeClass().addClass("fa fa-save").parent(".btn-primary").removeClass("btn-primary").addClass("btn-success");
+                        $(".ui-icon.ui-icon-cancel").removeClass().addClass("fa fa-times").parent(".btn-primary").removeClass("btn-primary").addClass("btn-danger");
+
+                        $(".ui-icon.ui-icon-seek-prev").wrap("<div class='btn btn-sm btn-default'></div>");
+                        $(".ui-icon.ui-icon-seek-prev").removeClass().addClass("fa fa-backward");
+
+                        $(".ui-icon.ui-icon-seek-first").wrap("<div class='btn btn-sm btn-default'></div>");
+                        $(".ui-icon.ui-icon-seek-first").removeClass().addClass("fa fa-fast-backward");
+
+                        $(".ui-icon.ui-icon-seek-next").wrap("<div class='btn btn-sm btn-default'></div>");
+                        $(".ui-icon.ui-icon-seek-next").removeClass().addClass("fa fa-forward");
+
+                        $(".ui-icon.ui-icon-seek-end").wrap("<div class='btn btn-sm btn-default'></div>");
+                        $(".ui-icon.ui-icon-seek-end").removeClass().addClass("fa fa-fast-forward");
+
+
+                        // upstartTime buttons
+
+                        $(window).on('resize.jqGrid', function () {
+                            jQuery("#jqgrid").jqGrid('setGridWidth', $("#content").width());
+                        })
+
+
+                    } // end function
+
+
+                }
+                ;
+
+        loadScript("/static/js/plugin/jqgrid/grid.locale-en.min.js", pagefunction);
+
+    </script>
+
+{% endblock %}
