@@ -4,14 +4,10 @@ from issue.models import Task
 import json
 
 
-def home(req):
-    return render_to_response('home.html')
-
-
 def issue(req):
     task = Task.objects.all()
-    creators = Task.objects.raw('select id ,creator from issue_task')
-    return render_to_response('issue.html', {'task': task, 'creators': creators})
+    owners = task.values('owner')
+    return render_to_response('issue.html', {'task': task, 'owners': owners})
 
 
 def settings(req):
@@ -23,12 +19,23 @@ def dummy(req):
     upcreator = req.REQUEST.get('creator')
     upowner = req.REQUEST.get('owner')
     uptask = req.REQUEST.get('task')
-    Task.objects.filter(id=upid).update(creator=upcreator, owner=upowner, task=uptask)
+    upprocess = req.REQUEST.get('process')
+    upstartTime = req.REQUEST.get('startTime')
+    upendTime = req.REQUEST.get('endTime')
+    upstate = req.REQUEST.get('state')
+    oper = req.REQUEST.get('oper')
+    if oper == 'del':
+        Task.objects.filter(id=upid).delete()
+    elif oper == 'edit' and upid == '':
+        p = Task(id=upid, creator=upcreator, owner=upowner, task=uptask, startTime=upstartTime, endTime=upendTime)
+        p.save()
+    else:
+        Task.objects.filter(id=upid).update(creator=upcreator, owner=upowner, task=uptask, startTime=upstartTime,
+                                            endTime=upendTime, process=upprocess, state=upstate)
     return HttpResponse(req)
 
 
 def getselect(req):
     select = req.REQUEST.get('creator')
-
-    result = Task.objects.filter(creator=select).values('owner','task')[0]
+    result = Task.objects.filter(creator=select).values('owner', 'task')[0]
     return HttpResponse(json.dumps(result['owner']))
