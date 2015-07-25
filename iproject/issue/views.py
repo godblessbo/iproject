@@ -26,8 +26,8 @@ def dummy(req):
     oper = req.REQUEST.get('oper')
     if oper == 'del':
         Task.objects.filter(id=upid).delete()
-    elif oper == 'edit' and upid == '':
-        p = Task(id=upid, creator=upcreator, owner=upowner, task=uptask, startTime=upstartTime, endTime=upendTime)
+    elif oper == 'edit' and upid == '0':
+        p = Task(creator=upcreator, owner=upowner, task=uptask, startTime=upstartTime, endTime=upendTime)
         p.save()
     else:
         Task.objects.filter(id=upid).update(creator=upcreator, owner=upowner, task=uptask, startTime=upstartTime,

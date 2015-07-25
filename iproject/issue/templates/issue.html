@@ -78,7 +78,7 @@
                 data: jqgrid_data,
                 datatype: "local",
                 height: 'auto',
-                colNames: ['Actions', 'creator', 'owner', 'tasks', 'startTime', 'endTime', 'process', 'state'],
+                colNames: ['Actions', 'id', 'creator', 'owner', 'tasks', 'startTime', 'endTime', 'process', 'state'],
                 colModel: [
                     {
                         name: 'act',
@@ -87,9 +87,18 @@
                         searchable: false
                     },
                     {
+                        name: 'id',
+                        index: 'id',
+                        editable: true,
+                        editoptions: {defaultValue: '0'},
+                        hidden: true
+                    },
+                    {
                         name: 'creator',
                         index: 'creator',
-                        editable: true
+                        editable: true,
+                        editrules: {required: true}
+
                     }
                     ,
                     {
@@ -97,7 +106,8 @@
                         index: 'owner',
                         editable: true,
                         edittype: 'select',
-                        editoptions: {value: ownerdata}
+                        editoptions: {value: ownerdata},
+                        editrules: {required: true}
                     }
                     ,
                     {
@@ -105,20 +115,27 @@
                         index: 'task',
                         sortable: false,
                         editable: true,
-                        edittype: 'textarea',
-                        editoptions: {rows: "2", cols: "17"},
-                        searchable: false
+                        searchable: false,
+                        editrules: {required: true}
                     }
                     ,
                     {
                         name: 'startTime',
                         index: 'startTime',
                         editable: true,
+                        formatter: 'date',
+                        formatoptions: {newformat: 'Y-m-d'},
                         editoptions: {
+
                             dataInit: function (elem) {
-                                $(elem).datepicker({dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
+                                $(elem).datepicker({
+                                    dateFormat: 'yy-mm-dd',
+                                    changeMonth: true,
+                                    changeYear: true
+                                }).datepicker('setDate', 'today');
                             }
                         }
+
                     }
                     ,
                     {
@@ -127,7 +144,11 @@
                         editable: true,
                         editoptions: {
                             dataInit: function (elem) {
-                                $(elem).datepicker({dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
+                                $(elem).datepicker({
+                                    dateFormat: 'yy-mm-dd',
+                                    changeMonth: true,
+                                    changeYear: true
+                                }).datepicker('setDate', 'today');
                             }
                         }
                     }
@@ -173,6 +194,8 @@
                 autowidth: true
 
             });
+
+
             jQuery("#jqgrid").jqGrid('navGrid', "#pjqgrid", {
                 edit: false,
                 add: false,
@@ -183,6 +206,7 @@
             $('.navtable .ui-pg-button').tooltip({
                 container: 'body'
             });
+
 
             jQuery("#m1").click(function () {
                 var s;
