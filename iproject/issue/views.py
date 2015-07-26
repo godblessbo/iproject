@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from issue.models import Task
+from workspace.models import WorkSpace
 import json
 
 
@@ -10,8 +11,6 @@ def issue(req):
     return render_to_response('issue.html', {'task': task, 'owners': owners})
 
 
-def settings(req):
-    return render_to_response('settings.html')
 
 
 def dummy(req):
@@ -34,8 +33,8 @@ def dummy(req):
                                             endTime=upendTime, process=upprocess, state=upstate)
     return HttpResponse(req)
 
-
-def getselect(req):
-    select = req.REQUEST.get('creator')
-    result = Task.objects.filter(creator=select).values('owner', 'task')[0]
-    return HttpResponse(json.dumps(result['owner']))
+#
+# def getselect(req):
+#     select = req.REQUEST.get('creator')
+#     result = Task.objects.filter(creator=select).values('owner', 'task')[0]
+#     return HttpResponse(json.dumps(result['owner']))

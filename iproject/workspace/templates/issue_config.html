@@ -9,21 +9,6 @@
         <!-- row -->
         <div class="row">
 
-            <div class="col-md-2">
-
-                <div class=" btn-group-justified">
-                    <a id="taskall" href="javascript:void(0);" class="btn btn-default active ">ALL</a>
-                    <a id="taskopen" href="javascript:void(0);" class="btn btn-default">OPEN</a>
-                </div>
-            </div>
-            <div class="col-md-offset-11">
-                <ul class="demo-btns">
-                    <li>
-                        <a href="/iproject/workspace/issue" class="btn btn-default txt-color-teal"><i
-                                class="fa fa-gear fa-lg"></i></a>
-                    </li>
-                </ul>
-            </div>
 
             <!-- NEW WIDGET START -->
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -52,40 +37,35 @@
 
     <script src="/static/js/plugin/jqgrid/jquery.jqGrid.min.js"></script>
     <script src="/static/js/plugin/jqgrid/grid.locale-en.min.js"></script>
-    <script src="/static/issue/js/issue_main.js"></script>
+
+
 
     <script type="text/javascript">
         $(document).ready(function () {
             pageSetUp();
 
             var jqgrid_data = [
-
-                {%  for p in task %}
+                {%  for p in WS %}
                     {
                         id: '{{p.id}}',
-                        creator: '{{ p.creator }}',
-                        owner: '{{ p.owner }}',
-                        task: '{{ p.task }}',
-                        startTime: '{{ p.startTime|date:"Y-m-d" }}',
-                        endTime: '{{ p.endTime|date:"Y-m-d"}}',
-                        process: '{{ p.process }}',
-                        state: '{{ p.state }}'
+                        name: '{{ p.name }}',
+                        sex: '{{ p.sex }}',
+                        birth: '{{ p.birth|date:"Y-m-d" }}',
+                        highSchool: '{{ p.highSchool}}',
+                        college: '{{ p.college}}',
+                        qq: '{{ p.qq}}',
+                        email: '{{ p.email }}',
+                        note: '{{ p.note }}'
                     },
+
                 {% endfor %}
             ];
-
-
-            var ownerdata =
-            {
-                {% for q in owners %} '{{ q.owner }}': '{{q.owner}}',    {% endfor %}
-            };
-
 
             jQuery("#jqgrid").jqGrid({
                 data: jqgrid_data,
                 datatype: "local",
                 height: 'auto',
-                colNames: ['Actions', 'id', 'creator', 'owner', 'tasks', 'startTime', 'endTime', 'process', 'state'],
+                colNames: ['Actions', 'id', 'name', 'sex', 'birth', 'highSchool', 'college', 'qq', 'email', 'note'],
                 colModel: [
                     {
                         name: 'act',
@@ -101,36 +81,25 @@
                         hidden: true
                     },
                     {
-                        name: 'creator',
-                        index: 'creator',
+                        name: 'name',
+                        index: 'name',
                         editable: true,
                         editrules: {required: true}
 
                     }
                     ,
                     {
-                        name: 'owner',
-                        index: 'owner',
+                        name: 'sex',
+                        index: 'sex',
                         editable: true,
                         edittype: 'select',
-                        editoptions: {
-                            value: ownerdata
-                        },
-                        editrules: {required: true}
+                        editoptions: {value: {'unknown': 'unknown', 'male': 'male', 'female': 'female'}}
+
                     }
                     ,
                     {
-                        name: 'task',
-                        index: 'task',
-                        sortable: false,
-                        editable: true,
-                        searchable: false,
-                        editrules: {required: true}
-                    }
-                    ,
-                    {
-                        name: 'startTime',
-                        index: 'startTime',
+                        name: 'birth',
+                        index: 'birth',
                         editable: true,
                         formatter: 'date',
                         formatoptions: {newformat: 'Y-m-d'},
@@ -141,38 +110,50 @@
                                     dateFormat: 'yy-mm-dd',
                                     changeMonth: true,
                                     changeYear: true
-                                }).datepicker('setDate', 'today');
+                                });
                             }
                         }
 
                     }
                     ,
                     {
-                        name: 'endTime',
-                        index: 'endTime',
+                        name: 'highSchool',
+                        index: 'highSchool',
+                        sortable: true,
                         editable: true,
-                        editoptions: {
-                            dataInit: function (elem) {
-                                $(elem).datepicker({
-                                    dateFormat: 'yy-mm-dd',
-                                    changeMonth: true,
-                                    changeYear: true
-                                }).datepicker('setDate', 'today');
-                            }
-                        }
+                        searchable: true
                     }
                     ,
                     {
-                        name: 'process',
-                        index: 'process',
-                        editable: false,
-                        searchable: false
+                        name: 'college',
+                        index: 'college',
+                        sortable: true,
+                        editable: true,
+                        searchable: true
                     }
                     ,
                     {
-                        name: 'state',
-                        index: 'state',
-                        editable: false
+                        name: 'qq',
+                        index: 'qq',
+                        sortable: true,
+                        editable: true,
+                        searchable: true,
+                        editrules: {number: true}
+                    },
+                    {
+                        name: 'email',
+                        index: 'email',
+                        sortable: true,
+                        editable: true,
+                        searchable: true,
+                        editrules: {required:false,email: true}
+                    },
+                    {
+                        name: 'note',
+                        index: 'note',
+                        sortable: true,
+                        editable: true,
+                        searchable: true
                     }
                 ],
                 rowNum: 10,
@@ -189,17 +170,18 @@
                         var cl = ids[i];
                         be = "<button class='btn btn-xs btn-default' data-original-title='Edit Row' onclick=\"jQuery('#jqgrid').editRow('" + cl + "');\"><i class='fa fa-pencil'></i></button>";
                         se = "<button class='btn btn-xs btn-default' data-original-title='Save Row' onclick=\"jQuery('#jqgrid').saveRow('" + cl + "');\"><i class='fa fa-save'></i></button>";
-                        //ca = "<button class='btn btn-xs btn-default' data-original-title='Cancel' onclick=\"jQuery('#jqgrid').restoreRow('" + cl + "');\"><i class='fa fa-times'></i></button>";
+                        ca = "<button class='btn btn-xs btn-default' data-original-title='Cancel' onclick=\"jQuery('#jqgrid').restoreRow('" + cl + "');\"><i class='fa fa-times'></i></button>";
                         //ce = "<button class='btn btn-xs btn-default' onclick=\"jQuery('#jqgrid').restoreRow('"+cl+"');\"><i class='fa fa-times'></i></button>";
                         //jQuery("#jqgrid").jqGrid('setRowData',ids[i],{act:be+se+ce});
                         jQuery("#jqgrid").jqGrid('setRowData', ids[i], {
-                            act: be + se
+                            act: be + se + ca
                         });
                     }
-                } ,
-                editurl: "/iproject/issue/dummy",
+                },
+                editurl: "/iproject/workspace/dummy/issue/",
                 multiselect: false,
-                autowidth: true
+                autowidth: true,
+                caption: 'User Config'
 
             });
 
@@ -209,6 +191,7 @@
                 add: false,
                 del: true
             });
+
             jQuery("#jqgrid").jqGrid('inlineNav', "#pjqgrid");
             /* Add tooltips */
             $('.navtable .ui-pg-button').tooltip({
