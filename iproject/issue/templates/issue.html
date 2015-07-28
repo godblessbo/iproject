@@ -97,7 +97,6 @@
                         name: 'id',
                         index: 'id',
                         editable: true,
-                        editoptions: {defaultValue: '0'},
                         hidden: true
                     },
                     {
@@ -141,7 +140,7 @@
                                     dateFormat: 'yy-mm-dd',
                                     changeMonth: true,
                                     changeYear: true
-                                }).datepicker('setDate', 'today');
+                                });
                             }
                         }
 
@@ -151,13 +150,14 @@
                         name: 'endTime',
                         index: 'endTime',
                         editable: true,
+                        editrules: {required: false, date: true},
                         editoptions: {
                             dataInit: function (elem) {
                                 $(elem).datepicker({
                                     dateFormat: 'yy-mm-dd',
                                     changeMonth: true,
                                     changeYear: true
-                                }).datepicker('setDate', 'today');
+                                });
                             }
                         }
                     }
@@ -187,16 +187,15 @@
                     var ids = jQuery("#jqgrid").jqGrid('getDataIDs');
                     for (var i = 0; i < ids.length; i++) {
                         var cl = ids[i];
-                        be = "<button class='btn btn-xs btn-default' data-original-title='Edit Row' onclick=\"jQuery('#jqgrid').editRow('" + cl + "');\"><i class='fa fa-pencil'></i></button>";
-                        se = "<button class='btn btn-xs btn-default' data-original-title='Save Row' onclick=\"jQuery('#jqgrid').saveRow('" + cl + "');\"><i class='fa fa-save'></i></button>";
-                        //ca = "<button class='btn btn-xs btn-default' data-original-title='Cancel' onclick=\"jQuery('#jqgrid').restoreRow('" + cl + "');\"><i class='fa fa-times'></i></button>";
-                        //ce = "<button class='btn btn-xs btn-default' onclick=\"jQuery('#jqgrid').restoreRow('"+cl+"');\"><i class='fa fa-times'></i></button>";
-                        //jQuery("#jqgrid").jqGrid('setRowData',ids[i],{act:be+se+ce});
+
+                        se = "<button class='btn btn-xs btn-default' data-original-title='Save Row' onclick=\"jQuery('#jqgrid').saveRow(" + cl + ",saveparameters);\"><i class='fa fa-save'></i></button>";
+                        be = "<button class='btn btn-xs btn-default' data-original-title='Edit Row' onclick=\"jQuery('#jqgrid').editRow(" + cl + ");\"><i class='fa fa-pencil'></i></button>";
+                        em = "<button class='btn btn-xs btn-default' data-original-title='Email' onclick=\"email(" + cl + ");\"><i class='fa fa-envelope'></i></button>";
                         jQuery("#jqgrid").jqGrid('setRowData', ids[i], {
-                            act: be + se
+                            act: be + se + em
                         });
                     }
-                } ,
+                },
                 editurl: "/iproject/issue/dummy",
                 multiselect: false,
                 autowidth: true
@@ -209,12 +208,14 @@
                 add: false,
                 del: true
             });
+            jQuery("#jqgrid").jqGrid('addRow', addparameters);
+
+
             jQuery("#jqgrid").jqGrid('inlineNav', "#pjqgrid");
             /* Add tooltips */
             $('.navtable .ui-pg-button').tooltip({
                 container: 'body'
             });
-
 
 
             // remove classes

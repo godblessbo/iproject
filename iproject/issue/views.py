@@ -33,8 +33,4 @@ def dummy(req):
                                             endTime=upendTime, process=upprocess, state=upstate)
     return HttpResponse(req)
 
-#
-# def getselect(req):
-#     select = req.REQUEST.get('creator')
-#     result = Task.objects.filter(creator=select).values('owner', 'task')[0]
-#     return HttpResponse(json.dumps(result['owner']))
+
