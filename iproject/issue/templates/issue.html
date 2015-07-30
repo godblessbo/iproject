@@ -85,7 +85,7 @@
                 data: jqgrid_data,
                 datatype: "local",
                 height: 'auto',
-                colNames: ['Actions', 'id', 'creator', 'owner', 'tasks', 'startTime', 'endTime', 'process', 'state'],
+                colNames: ['Actions', 'id', 'taskspace', 'creator', 'owner', 'tasks', 'startTime', 'endTime', 'process', 'state'],
                 colModel: [
                     {
                         name: 'act',
@@ -96,6 +96,13 @@
                     {
                         name: 'id',
                         index: 'id',
+                        editable: true,
+                        hidden: true
+                    },
+
+                    {
+                        name: 'taskspace',
+                        index: 'taskspace',
                         editable: true,
                         hidden: true
                     },
@@ -112,9 +119,7 @@
                         index: 'owner',
                         editable: true,
                         edittype: 'select',
-                        editoptions: {
-                            value: ownerdata
-                        },
+                        editoptions: {value: ownerdata},
                         editrules: {required: true}
                     }
                     ,
@@ -134,7 +139,6 @@
                         formatter: 'date',
                         formatoptions: {newformat: 'Y-m-d'},
                         editoptions: {
-
                             dataInit: function (elem) {
                                 $(elem).datepicker({
                                     dateFormat: 'yy-mm-dd',
@@ -187,7 +191,6 @@
                     var ids = jQuery("#jqgrid").jqGrid('getDataIDs');
                     for (var i = 0; i < ids.length; i++) {
                         var cl = ids[i];
-
                         se = "<button class='btn btn-xs btn-default' data-original-title='Save Row' onclick=\"jQuery('#jqgrid').saveRow(" + cl + ",saveparameters);\"><i class='fa fa-save'></i></button>";
                         be = "<button class='btn btn-xs btn-default' data-original-title='Edit Row' onclick=\"jQuery('#jqgrid').editRow(" + cl + ");\"><i class='fa fa-pencil'></i></button>";
                         em = "<button class='btn btn-xs btn-default' data-original-title='Email' onclick=\"email(" + cl + ");\"><i class='fa fa-envelope'></i></button>";
@@ -205,9 +208,11 @@
 
             jQuery("#jqgrid").jqGrid('navGrid', "#pjqgrid", {
                 edit: false,
-                add: false,
+                add: true,
                 del: true
-            });
+            },
+            { recreateForm: true });
+
             jQuery("#jqgrid").jqGrid('addRow', addparameters);
 
 
@@ -257,8 +262,6 @@
         })
 
     </script>
-
-
 {% endblock %}
 
 

@@ -1,0 +1,59 @@
+7-29
+用户登录没有验证用户，数据库没有相应的用户记录，没有注册用户功能
+7-30
+编辑状态保持，点击其他位置编辑行的状态不变，在editoptions中用modal: true实现
+
+editGridRow属性参数
+
+	editGridRow : function(rowid, p){
+		var regional =  $.jgrid.getRegional(this[0], 'edit');
+		p = $.extend(true, {
+			top : 0,
+			left: 0,
+			width: 300,
+			datawidth: 'auto',
+			height: 'auto',
+			dataheight: 'auto',
+			modal: false,
+			overlay : 30,
+			drag: true,
+			resize: true,
+			url: null,
+			mtype : "POST",
+			clearAfterAdd :true,
+			closeAfterEdit : false,
+			reloadAfterSubmit : true,
+			onInitializeForm: null,
+			beforeInitData: null,
+			beforeShowForm: null,
+			afterShowForm: null,
+			beforeSubmit: null,
+			afterSubmit: null,
+			onclickSubmit: null,
+			afterComplete: null,
+			onclickPgButtons : null,
+			afterclickPgButtons: null,
+			editData : {},
+			recreateForm : false,
+			jqModal : true,
+			closeOnEscape : false,
+			addedrow : "first",
+			topinfo : '',
+			bottominfo: '',
+			saveicon : [],
+			closeicon : [],
+			savekey: [false,13],
+			navkeys: [false,38,40],
+			checkOnSubmit : false,
+			checkOnUpdate : false,
+			_savedData : {},
+			processing : false,
+			onClose : null,
+			ajaxEditOptions : {},
+			serializeEditData : null,
+			viewPagerButtons : true,
+			overlayClass : 'ui-widget-overlay',
+			removemodal : true,
+			form: 'edit',
+			template : null
+		}

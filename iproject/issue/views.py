@@ -1,8 +1,10 @@
-from django.http import HttpResponse
-from django.shortcuts import render_to_response
 from issue.models import Task
-from workspace.models import WorkSpace
-import json
+from django.shortcuts import render_to_response
+from django.http import HttpResponse
+
+
+
+
 
 
 def issue(req):

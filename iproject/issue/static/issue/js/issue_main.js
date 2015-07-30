@@ -22,7 +22,7 @@ saveparameters = {
                       async: false,
                       cache: false,
                       datatype: 'json',
-                      data: updata,
+                      data: "",
                       success: function (json) {
                           if (json != null) {
                               str = eval(json);
@@ -38,7 +38,7 @@ saveparameters = {
 
 addparameters={
     rowID : "0",
-    initdata : {},
+    initdata : {oper:"add"},
     position :"first",
     useDefValues : false,
     useFormatter : false,
