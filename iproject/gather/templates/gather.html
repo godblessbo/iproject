@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block ribbon-title %}gather{% endblock %}
+
+{% block userstyle %}
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/gather/css/gather_main.css">
+{% endblock %}
+
+{% block username %}{{ username }}{% endblock %}
+
+{% block content %}
+    <section id="widget-grid" class="">
+
+        <div class="row">
+            <!--右上角的小齿轮图标-->
+            <div class="col-md-offset-11">
+                <ul class="demo-btns">
+                    <li>
+                        <a href="/iproject/workspace/" class="btn btn-default txt-color-teal"><i
+                                class="fa fa-gear fa-lg"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <!--  jqgrid表格以及page面板 -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <table id="gathergrid"></table>
+                <div id="pjqgrid"></div>
+            </article>
+
+        </div>
+    </section>
+    <!--  邮件弹出层 -->
+    <div id="EmailModal" class="modal" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content email-modal-content-height">  <!--总高度-->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Email Notify</h4>
+                </div>
+                <div class="modal-body email-modal-body-height">   <!--body高度-->
+                    <div class="form-group form-group-gap ">
+                        <label for="userEmailAddress" class="col-md-2 control-label col-md-2-ex">Email:</label>
+
+                        <div class="col-md-10 col-md-10-ex">
+                            <input id="userEmailAddress" class="form-control" type="email">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-gap">
+                        <label for="userEmailWords" class="col-md-2 control-label col-md-2-ex">Words:</label>
+
+                        <div class="col-md-10 col-md-10-ex">
+                            <textarea id="userEmailWords" rows="3" class="textarea-userEmailWords"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="closedialog()">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="closedialog()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block userscript %}
+    <script src="/static/js/plugin/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="/static/js/plugin/jqgrid/grid.locale-en.min.js"></script>
+    <script src="/static/gather/js/gather_main.js"></script>
+{% endblock %}
+
+
+
+
+
+
+

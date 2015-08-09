@@ -1,10 +1,10 @@
 from django.conf.urls import patterns, url
 from workspace import views
 
-# do not put issue in front of issue/dummy
+# do not put gather in front of gather/dummy
 
 
 urlpatterns = patterns('',
-                       url(r'^issue/$', views.issue_config),
-                       url(r'^dummy/issue/$', views.dummyissue),
+                       url(r'^gather/$', views.gather_config),
+                      # url(r'^dummy/gather/$', views.dummygather),
                        )

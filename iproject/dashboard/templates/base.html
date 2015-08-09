@@ -56,7 +56,7 @@
           media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
     <link rel="apple-touch-startup-image" href="/static/img/splash/iphone.png"
           media="screen and (max-device-width: 320px)">
-
+    {% block userstyle %}{% endblock %}
 </head>
 
 
@@ -126,7 +126,7 @@
         <!-- Suggestion: populate this list with fetch and push technique -->
         <ul class="dropdown-menu">
             <li>
-                <a href="/iproject/workspace/issue/">Issue Config</a>
+                <a href="/iproject/workspace/gathering/">gathering Config</a>
             </li>
             <li class="divider"></li>
             <li>
@@ -154,7 +154,7 @@
         <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
             <li class="">
                 <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
-                    <img src="/static/img/avatars/sunny.png" alt="John Doe" class="online"/>
+                    <img src="" alt='' class="online"/>
                 </a>
                 <ul class="dropdown-menu pull-right">
                     <li>
@@ -178,7 +178,8 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="login.html" class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i
+                        <a href="/accounts/logout" class="padding-10 padding-top-5 padding-bottom-5"
+                           data-action="userLogout"><i
                                 class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
                     </li>
                 </ul>
@@ -187,7 +188,7 @@
 
         <!-- logout button -->
         <div id="logout" class="btn-header transparent pull-right">
-            <span> <a href="login.html" title="Sign Out" data-action="userLogout"
+            <span> <a href="/accounts/logout" title="Sign Out" data-action="userLogout"
                       data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i
                     class="fa fa-sign-out"></i></a> </span>
         </div>
@@ -201,7 +202,7 @@
 
         <!-- #SEARCH -->
         <!-- input: search field -->
-        <form action="http://onlinelearnearn.com/smarttheme/DEVELOPER/HTML_version/search.html"
+        <form action=""
               class="header-search pull-right">
             <input id="search-fld" type="text" name="param" placeholder="Find reports and more">
             <button type="submit">
@@ -318,7 +319,7 @@
 					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
                         <img src="/static/img/avatars/sunny.png" alt="me" class="online"/>
 						<span>
-							john.doe 
+							{% block username %}{% endblock %}
 						</span>
                         <i class="fa fa-angle-down"></i>
                     </a>
@@ -335,8 +336,9 @@
                         class="menu-item-parent">Dashboard</span></a>
             </li>
             <li>
-                <a href="/iproject/issue/" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span
-                        class="menu-item-parent">Issue Management</span></a>
+                <a href="/iproject/gather/showGatherJoinInfo/" title="Gathering Management">
+                    <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent"> Gathering Management </span>
+                </a>
             </li>
 
         </ul>
@@ -508,7 +510,6 @@ you can add as many as you like
 <!--================================================== -->
 
 
-
 <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
 
 <script>
@@ -550,10 +551,6 @@ you can add as many as you like
 {#公共javascript#}
 
 {% block userscript %}{% endblock %}
-
-
-
-
 
 
 <script type="text/javascript">
@@ -614,7 +611,6 @@ you can add as many as you like
     })
 
 </script>
-
 
 
 </body>

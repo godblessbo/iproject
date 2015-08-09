@@ -1,17 +1,15 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from django.contrib.auth.views import login, logout
-from dashboard import views
-
-# do not put issue in front of issue/dummy
 
 urlpatterns = patterns('',
-
-                       url(r'^accounts/login/$', views.login),
-                       url(r'^accounts/logout/$', logout),
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r'^iproject/home/', views.home),
+                       url(r'^iproject/$', 'dashboard.views.home'),
+                       url(r'^accounts/login/$', 'dashboard.views.sign_in_view'),
+                       url(r'^iproject/login/$', 'dashboard.views.sign_in'),
+                       url(r'^accounts/logout/$', 'dashboard.views.sign_out'),
+                       url(r'^accounts/logon/$', 'dashboard.views.sign_up_view'),
+                       url(r'^iproject/logon/$', 'dashboard.views.sign_up'),
+                       url(r'^iproject/home/', 'dashboard.views.home'),
                        url(r'^iproject/workspace/', include('workspace.urls')),
-                       url(r'^iproject/issue/', include('issue.urls')),
-                       url(r'^iproject/$', views.home),
+                       url(r'^iproject/gather/', include('gather.urls')),
                        )

@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'issue',
+    'gather',
     'dashboard',
     'workspace',
 )
@@ -57,8 +57,6 @@ ROOT_URLCONF = 'iproject.urls'
 WSGI_APPLICATION = 'iproject.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -70,8 +68,6 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-# Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
