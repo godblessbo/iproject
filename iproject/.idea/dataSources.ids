@@ -23,8 +23,7 @@
       <foreign-key name="auth_group_permissi_permission_id_23962d04_fk_auth_permission_id" columns="permission_id" ref-table="auth_permission" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="auth_group_permissions_group_id_58c48ba9_fk_auth_group_id" columns="group_id" ref-table="auth_group" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="group_id" unique="true" columns="permission_id"/>
-      <index name="auth_group_permissions_0e939a4f" unique="false" columns="group_id"/>
-      <index name="auth_group_permissions_8373b171" unique="false" columns="permission_id"/>
+      <index name="auth_group_permissi_permission_id_23962d04_fk_auth_permission_id" unique="false" columns="permission_id"/>
     </table>
     <table name="auth_permission" schema="" catalog="iproject" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -36,7 +35,6 @@
       <exported-key name="auth_group_permissi_permission_id_23962d04_fk_auth_permission_id" table="auth_group_permissions" schema="" catalog="iproject" columns="permission_id"/>
       <exported-key name="auth_user_user_perm_permission_id_3d7071f0_fk_auth_permission_id" table="auth_user_user_permissions" schema="" catalog="iproject" columns="permission_id"/>
       <index name="content_type_id" unique="true" columns="codename"/>
-      <index name="auth_permission_417f1b1c" unique="false" columns="content_type_id"/>
     </table>
     <table name="auth_user" schema="" catalog="iproject" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -44,8 +42,8 @@
       <column name="last_login" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="is_superuser" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <column name="username" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
-      <column name="first_name" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
-      <column name="last_name" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="first_name" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
       <column name="email" sqlType="VARCHAR" precision="254" scale="0" nullable="false" jdbcType="12"/>
       <column name="is_staff" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
       <column name="is_active" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
@@ -54,6 +52,7 @@
       <exported-key name="auth_user_groups_user_id_24702650_fk_auth_user_id" table="auth_user_groups" schema="" catalog="iproject" columns="user_id"/>
       <exported-key name="auth_user_user_permissions_user_id_7cd7acb6_fk_auth_user_id" table="auth_user_user_permissions" schema="" catalog="iproject" columns="user_id"/>
       <exported-key name="django_admin_log_user_id_1c5f563_fk_auth_user_id" table="django_admin_log" schema="" catalog="iproject" columns="user_id"/>
+      <exported-key name="workspace_userspace_loginUser_id_599f4285_fk_auth_user_id" table="workspace_userspace" schema="" catalog="iproject" columns="loginUser_id"/>
       <index name="username" unique="true" columns="username"/>
     </table>
     <table name="auth_user_groups" schema="" catalog="iproject" type="TABLE">
@@ -64,8 +63,7 @@
       <foreign-key name="auth_user_groups_group_id_30a071c9_fk_auth_group_id" columns="group_id" ref-table="auth_group" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="auth_user_groups_user_id_24702650_fk_auth_user_id" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="user_id" unique="true" columns="group_id"/>
-      <index name="auth_user_groups_0e939a4f" unique="false" columns="group_id"/>
-      <index name="auth_user_groups_e8701ad4" unique="false" columns="user_id"/>
+      <index name="auth_user_groups_group_id_30a071c9_fk_auth_group_id" unique="false" columns="group_id"/>
     </table>
     <table name="auth_user_user_permissions" schema="" catalog="iproject" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -75,8 +73,7 @@
       <foreign-key name="auth_user_user_perm_permission_id_3d7071f0_fk_auth_permission_id" columns="permission_id" ref-table="auth_permission" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="auth_user_user_permissions_user_id_7cd7acb6_fk_auth_user_id" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="user_id" unique="true" columns="permission_id"/>
-      <index name="auth_user_user_permissions_8373b171" unique="false" columns="permission_id"/>
-      <index name="auth_user_user_permissions_e8701ad4" unique="false" columns="user_id"/>
+      <index name="auth_user_user_perm_permission_id_3d7071f0_fk_auth_permission_id" unique="false" columns="permission_id"/>
     </table>
     <table name="django_admin_log" schema="" catalog="iproject" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -90,8 +87,8 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="django_admin__content_type_id_5151027a_fk_django_content_type_id" columns="content_type_id" ref-table="django_content_type" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="django_admin_log_user_id_1c5f563_fk_auth_user_id" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="django_admin_log_417f1b1c" unique="false" columns="content_type_id"/>
-      <index name="django_admin_log_e8701ad4" unique="false" columns="user_id"/>
+      <index name="django_admin__content_type_id_5151027a_fk_django_content_type_id" unique="false" columns="content_type_id"/>
+      <index name="django_admin_log_user_id_1c5f563_fk_auth_user_id" unique="false" columns="user_id"/>
     </table>
     <table name="django_content_type" schema="" catalog="iproject" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -118,7 +115,6 @@
     </table>
     <table name="gather_gathering" schema="" catalog="iproject" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="creator" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
       <column name="desp" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <column name="notes" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <column name="startTime" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
@@ -128,10 +124,20 @@
       <column name="sleep" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
       <column name="budget" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="summary" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="groupkey_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="group_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="gather__groupkey_id_53fcce37_fk_workspace_user_group_relation_id" columns="groupkey_id" ref-table="workspace_user_group_relation" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="gather_gathering_d431090c" unique="false" columns="groupkey_id"/>
+      <foreign-key name="gather_gathering_group_id_51158e13_fk_workspace_groupspace_id" columns="group_id" ref-table="workspace_groupspace" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="gather_gathering_415e9821" unique="false" columns="group_id"/>
+    </table>
+    <table name="gather_joinstate" schema="" catalog="iproject" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="isJoin" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="reason" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="upMoney" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="relation_key_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="gat_relation_key_id_32480a13_fk_workspace_user_group_relation_id" columns="relation_key_id" ref-table="workspace_user_group_relation" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="gather_joinstate_8db94e6f" unique="false" columns="relation_key_id"/>
     </table>
     <table name="workspace_groupspace" schema="" catalog="iproject" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -139,20 +145,19 @@
       <column name="creator" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
       <column name="createTime" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="gather_gathering_group_id_51158e13_fk_workspace_groupspace_id" table="gather_gathering" schema="" catalog="iproject" columns="group_id"/>
       <exported-key name="workspace_user_grou_group_id_73ea7731_fk_workspace_groupspace_id" table="workspace_user_group_relation" schema="" catalog="iproject" columns="group_id"/>
     </table>
     <table name="workspace_user_group_relation" schema="" catalog="iproject" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="remove" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="remove" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
       <column name="group_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="isjoin" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
-      <column name="reason" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="workspace_user_grou_group_id_73ea7731_fk_workspace_groupspace_id" columns="group_id" ref-table="workspace_groupspace" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="workspace_user_group__user_id_78a3b0b8_fk_workspace_userspace_id" columns="user_id" ref-table="workspace_userspace" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="gather__groupkey_id_53fcce37_fk_workspace_user_group_relation_id" table="gather_gathering" schema="" catalog="iproject" columns="groupkey_id"/>
-      <index name="workspace_user_group_relation_0e939a4f" unique="false" columns="group_id"/>
+      <exported-key name="gat_relation_key_id_32480a13_fk_workspace_user_group_relation_id" table="gather_joinstate" schema="" catalog="iproject" columns="relation_key_id"/>
+      <index name="workspace_user_grou_group_id_73ea7731_fk_workspace_groupspace_id" unique="false" columns="group_id"/>
       <index name="workspace_user_group_relation_e8701ad4" unique="false" columns="user_id"/>
     </table>
     <table name="workspace_userspace" schema="" catalog="iproject" type="TABLE">
@@ -168,9 +173,12 @@
       <column name="major" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
       <column name="company" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
       <column name="homeaddr" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="loginUser_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="phone" sqlType="VARCHAR" precision="11" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="workspace_userspace_loginUser_id_599f4285_fk_auth_user_id" columns="loginUser_id" ref-table="auth_user" ref-schema="" ref-catalog="iproject" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="workspace_user_group__user_id_78a3b0b8_fk_workspace_userspace_id" table="workspace_user_group_relation" schema="" catalog="iproject" columns="user_id"/>
+      <index name="workspace_userspace_9392b2e7" unique="false" columns="loginUser_id"/>
     </table>
   </data-source>
 </component>

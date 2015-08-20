@@ -10,7 +10,6 @@
 
 {% block content %}
     <section id="widget-grid" class="">
-
         <div class="row">
             <!--右上角的小齿轮图标-->
             <div class="col-md-offset-11">
@@ -54,8 +53,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" onclick="closedialog()">Cancel</button>
-                    <button type="button" class="btn btn-success" onclick="closedialog()">OK</button>
+                    <button type="button" class="btn btn-danger" onclick="CloseEmailDialog()">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="CloseEmailDialog()">OK</button>
                 </div>
             </div>
         </div>
@@ -66,7 +65,7 @@
 {% block userscript %}
     <script src="/static/js/plugin/jqgrid/jquery.jqGrid.min.js"></script>
     <script src="/static/js/plugin/jqgrid/grid.locale-en.min.js"></script>
-    <script src="/static/gather/js/gather_main.js"></script>
+    <script src="/static/gather/js/join_info.js"></script>
 {% endblock %}
 
 

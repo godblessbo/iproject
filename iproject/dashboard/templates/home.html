@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+
+{% block username %}{{ username }}{% endblock %}
+{% block ribbon-title %}dashboard{% endblock %}
 {% block content %}
     <div id="content"><!-- Bread crumb is created dynamically -->
 
@@ -7,7 +10,7 @@
             <blockquote>
                 <p>Welcome to My Site ,this is a wesite where I practice<strong> bootstrap</strong> and
                     <strong>jquery </strong>and so on</p>
-                <small>enjoy yourself<cite title="Source Title">  thanks</cite></small>
+                <small>enjoy yourself<cite title="Source Title"> thanks</cite></small>
             </blockquote>
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
@@ -54,9 +57,10 @@
             </div>
             <blockquote>
                 <br>
+
                 <p>this is <strong>smartadmin </strong> and it is awesome.
 
-                <small>direct by  <cite title="Source Title">tianfei</cite></small>
+                    <small>direct by <cite title="Source Title">tianfei</cite></small>
             </blockquote>
             <br>
             <br>

@@ -1,7 +1,7 @@
-$(document).ready(function () {
+var GatherInfo = function () {
 
-    jQuery("#gathergrid").jqGrid({
-        url: '/iproject/gather/getGatherJoinInfo',
+    jQuery("#gather_info").jqGrid({
+        url: '/iproject/gather/getgrid?grid=getGatherInfo',
         datatype: "json",
         mtype: "post",
         height: "auto",
@@ -14,86 +14,136 @@ $(document).ready(function () {
             id: "id",
             userdata: "userdata"
         },
-        colNames: ['relationId', '姓名', '电话', '是否参与', '原因', 'Actions'],
+        colNames: ['id', 'creator', 'name', 'desp', 'notes', 'startTime', 'endTime', 'place', 'eat', 'sleep', 'budget', 'summary', 'Actions'],
         colModel: [
-
             {
-                name: 'relationId',
-                index: 'relationId',
+                name: 'id',
+                index: 'id',
                 sortable: true,
                 searchable: true,
                 hidden: true
             },
             {
-                name: 'userName',
-                index: 'userName',
-                align: 'center',
+                name: 'creator',
+                index: 'creator',
+                align: 'left',
                 sortable: true,
-                searchable: true,
-                width: 60
+                searchable: true
             },
             {
-                name: 'phoneNumber',
-                index: 'phoneNumber',
-                align: 'center',
+                name: 'name',
+                index: 'name',
+                align: 'left',
+                formatter: "showlink",
+                formatoptions: {
+                    baseLinkUrl: "/iproject/gather/linkurl?link=getGatherJoinInfo",
+                    target: "_blank",
+                    idName: 'id'
+                },
                 sortable: true,
-                searchable: true,
-                width: 60
+                searchable: true
             },
             {
-                name: 'isJoin',
-                index: 'isJoin',
+                name: 'desp',
+                index: 'desp',
                 sortable: true,
                 editable: true,
-                align: 'center',
+                align: 'left',
                 edittype: 'select',
                 editoptions: {value: {'unknown': 'unknown', 'true': 'true', 'false': 'false'}},
-                searchable: true,
-                width: 60
+                searchable: true
             },
             {
-                name: 'reason',
-                index: 'reason',
+                name: 'notes',
+                index: 'notes',
+                align: 'left',
+                sortable: true,
+                searchable: true
+            },
+            {
+                name: 'startTime',
+                index: 'startTime',
+                align: 'left',
+                sortable: true,
+                searchable: true
+            },
+            {
+                name: 'endTime',
+                index: 'endTime',
+                align: 'left',
+                sortable: true,
+                searchable: true
+            },
+            {
+                name: 'place',
+                index: 'place',
+                align: 'left',
+                sortable: true,
+                searchable: true
+            },
+            {
+                name: 'eat',
+                index: 'eat',
+                align: 'left',
+                sortable: true,
+                searchable: true
+            },
+            {
+                name: 'sleep',
+                index: 'sleep',
+                align: 'left',
+                sortable: true,
+                searchable: true
+            },
+            {
+                name: 'budget',
+                index: 'budget',
                 editable: true,
                 align: 'left',
                 edittype: 'textarea',
                 sortable: true,
-                searchable: true,
-                width: 400
+                searchable: true
+            },
+            {
+                name: 'summary',
+                index: 'summary',
+                editable: true,
+                align: 'left',
+                edittype: 'textarea',
+                sortable: true,
+                searchable: true
             },
             {
                 name: 'act',
                 index: 'act',
                 sortable: false,
-                searchable: false,
-                width: 60
+                searchable: false
             }
         ],
 
         rowNum: 10,
         rowList: [10, 20, 30],
-        pager: '#pjqgrid',
+        pager: '#page_gather_info',
         sortname: "id",
         toolbarfilter: true,
         viewrecords: true,
         sortorder: "asc",
         gridComplete: function () {
-            var ids = jQuery("#gathergrid").jqGrid('getDataIDs');
+            var ids = jQuery("#gather_info").jqGrid('getDataIDs');
             for (var i = 0; i < ids.length; i++) {
                 var cl = ids[i];
-                //(" + cl + ",saveparameters)
                 em = "<button class='btn btn-xs btn-default' data-original-title='Email' onclick=\"email(" + cl + ");\"><i class='fa fa-envelope'></i></button>";
-                jQuery("#gathergrid").jqGrid('setRowData', ids[i], {
+                jQuery("#gather_info").jqGrid('setRowData', ids[i], {
                     act: em
                 });
             }
         },
-        editurl: "/iproject/gather/dummyGatherJoinInfo",
+        editurl: "/iproject/gather/dummygrid?grid=dumm",
         multiselect: false,
         autowidth: true
     });
 
-    jQuery("#gathergrid").jqGrid('navGrid', "#pjqgrid", {
+    jQuery("#gather_info").jqGrid('navGrid', "#page_gather_info", {
         edit: false,
         add: false,
         del: false,
@@ -101,24 +151,11 @@ $(document).ready(function () {
         search: false
     });
 
-    email = function (id) {
-        showdialog()
-    };
-
     //jQuery("#gathergrid").jqGrid('inlineNav', "#pjqgrid");
     /* Add tooltips */
     $('.navtable .ui-pg-button').tooltip({
         container: 'body'
     });
-
-
-    showdialog = function () {
-        $("#EmailModal").modal()
-    };
-    closedialog = function () {
-        $("#EmailModal").modal("hide")
-    };
-
 
     // remove classes
     $(".ui-jqgrid").removeClass("ui-widget ui-widget-content");
@@ -152,9 +189,12 @@ $(document).ready(function () {
     $(".ui-icon.ui-icon-seek-end").wrap("<div class='btn btn-sm btn-default'></div>");
     $(".ui-icon.ui-icon-seek-end").removeClass().addClass("fa fa-fast-forward");
 
-});
+};
 
 $(window).on('resize.jqGrid', function () {
-    $("#gathergrid").jqGrid('setGridWidth', $("#content").width());
+    $("#gather_info").jqGrid('setGridWidth', $("#content").width());
 });
 
+$(function () {
+    GatherInfo();
+});

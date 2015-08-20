@@ -34,5 +34,4 @@ class User_Group_Relation(models.Model):
     group = models.ForeignKey(GroupSpace)
     user = models.ForeignKey(UserSpace)
     remove = models.BooleanField(default=False)
-    isjoin = models.BooleanField(default=False)
-    reason = models.TextField(null=True, blank=True)
+

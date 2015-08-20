@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block ribbon-title %}gather{% endblock %}
+
+{% block userstyle %}
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/gather/css/gather_main.css">
+{% endblock %}
+
+{% block username %}{{ username }}{% endblock %}
+
+{% block content %}
+    <section id="widget-grid" class="">
+        <div class="row">
+            <!--右上角的小齿轮图标-->
+            <div class="col-md-offset-11">
+                <ul class="demo-btns">
+                    <li>
+                        <a href="/iproject/workspace/" class="btn btn-default txt-color-teal"><i
+                                class="fa fa-gear fa-lg"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <!--  jqgrid表格以及page面板 -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <table id="gather_info"></table>
+                <div id="page_gather_info"></div>
+            </article>
+
+        </div>
+    </section>
+{% endblock %}
+
+{% block userscript %}
+    <script src="/static/js/plugin/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="/static/js/plugin/jqgrid/grid.locale-en.min.js"></script>
+    <script src="/static/gather/js/gather_info.js"></script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

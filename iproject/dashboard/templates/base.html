@@ -7,7 +7,6 @@
     <title> iproject </title>
     <meta name="description" content="">
     <meta name="author" content="">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- #CSS Links -->
@@ -34,10 +33,6 @@
     <link rel="shortcut icon" href="/static/img/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/static/img/favicon/favicon.ico" type="image/x-icon">
 
-    <!-- #GOOGLE FONT -->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
-
-    <!-- #APP SCREEN / ICONS -->
     <!-- Specifying a Webpage Icon for Web Clip
          Ref: https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html -->
     <link rel="apple-touch-icon" href="/static/img/splash/sptouch-icon-iphone.png">
@@ -105,11 +100,11 @@
             <!-- end notification content -->
 
             <!-- footer: refresh area -->
-					<span> Last updated on: 12/12/2013 9:43AM
-						<button type="button" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Loading..."
-                                class="btn btn-xs btn-default pull-right">
-                            <i class="fa fa-refresh"></i>
-                        </button> </span>
+                      <span> Last updated on: 12/12/2013 9:43AM
+                           <button type="button" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Loading..."
+                                   class="btn btn-xs btn-default pull-right">
+                               <i class="fa fa-refresh"></i>
+                           </button> </span>
             <!-- end footer -->
 
         </div>
@@ -163,7 +158,8 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="profile.html" class="padding-10 padding-top-0 padding-bottom-0"> <i
+                        <a href="/iproject/dashboard/showPage?pagehtml=profile"
+                           class="padding-10 padding-top-0 padding-bottom-0"> <i
                                 class="fa fa-user"></i> <u>P</u>rofile</a>
                     </li>
                     <li class="divider"></li>
@@ -318,9 +314,9 @@
 					
 					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
                         <img src="/static/img/avatars/sunny.png" alt="me" class="online"/>
-						<span>
-							{% block username %}{% endblock %}
-						</span>
+                        <span>
+                            {% block username %}{% endblock %}
+                        </span>
                         <i class="fa fa-angle-down"></i>
                     </a>
 					
@@ -332,15 +328,15 @@
     <nav>
         <ul>
             <li>
-                <a href="/iproject/home/" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span
+                <a href="/iproject/dashboard/showPage?pagehtml=home.html" title="Dashboard"><i
+                        class="fa fa-lg fa-fw fa-home"></i> <span
                         class="menu-item-parent">Dashboard</span></a>
             </li>
             <li>
-                <a href="/iproject/gather/showGatherJoinInfo/" title="Gathering Management">
-                    <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent"> Gathering Management </span>
+                <a href="/iproject/gather/showPage?pagehtml=gather_info.html" title="Gathering">
+                    <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent"> Gathering</span>
                 </a>
             </li>
-
         </ul>
     </nav>
 			<span class="minifyme" data-action="minifyMenu"> 
@@ -399,8 +395,6 @@
         <!-- widget grid -->
 
         {% block content %} {% endblock %}
-
-
 
         <!-- end widget grid -->
 
@@ -478,29 +472,31 @@ you can add as many as you like
 <div id="shortcut">
     <ul>
         <li>
-            <a href="inbox.html" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i
+            <a href="" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i
                     class="fa fa-envelope fa-4x"></i> <span>Mail <span
                     class="label pull-right bg-color-darken">14</span></span> </span> </a>
         </li>
         <li>
-            <a href="calendar.html" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i
+            <a href="" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i
                     class="fa fa-calendar fa-4x"></i> <span>Calendar</span> </span> </a>
         </li>
         <li>
-            <a href="gmap-xml.html" class="jarvismetro-tile big-cubes bg-color-purple"> <span class="iconbox"> <i
+            <a href="" class="jarvismetro-tile big-cubes bg-color-purple"> <span class="iconbox"> <i
                     class="fa fa-map-marker fa-4x"></i> <span>Maps</span> </span> </a>
         </li>
         <li>
-            <a href="invoice.html" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i
+            <a href="" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i
                     class="fa fa-book fa-4x"></i> <span>Invoice <span class="label pull-right bg-color-darken">99</span></span> </span>
             </a>
         </li>
         <li>
-            <a href="gallery.html" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i
+            <a href="" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i
                     class="fa fa-picture-o fa-4x"></i> <span>Gallery </span> </span> </a>
         </li>
         <li>
-            <a href="profile.html" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i
+            <a href="/iproject/dashboard/showPage?pagehtml=profile.html"
+               class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span
+                    class="iconbox"> <i
                     class="fa fa-user fa-4x"></i> <span>My Profile </span> </span> </a>
         </li>
     </ul>
@@ -528,8 +524,6 @@ you can add as many as you like
 <script data-pace-options='{ "restartOnRequestAfter": true }' src="/static/js/plugin/pace/pace.min.js"></script>
 
 {#公共javascript#}
-
-
 <script type="text/javascript" src="/static/js/app.config.js"></script>
 <script type="text/javascript" src="/static/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap/bootstrap.min.js"></script>
@@ -550,8 +544,13 @@ you can add as many as you like
 <script type="text/javascript" src="/static/js/smart-chat-ui/smart.chat.manager.min.js"></script>
 {#公共javascript#}
 
-{% block userscript %}{% endblock %}
 
+
+{#用户自定义javascript#}
+
+
+{% block userscript %}{% endblock %}
+{#用户自定义javascript#}
 
 <script type="text/javascript">
 
